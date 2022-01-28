@@ -4,7 +4,7 @@
 # created by GhostTalker
 #
 
-SCRIPTPATH=/srv/scripte
+SCRIPTPATH=/srv/ATVscriptcollection
 CONFIGPATH=$SCRIPTPATH
 LOGPATH=$SCRIPTPATH/log
 TMPPATH=$SCRIPTPATH/tmp
