@@ -4,14 +4,12 @@
 # created by GhostTalker
 #
 
-SCRIPTPATH=/srv/ATVscriptcollection
-CONFIGPATH=$SCRIPTPATH
+### read values from config.ini
+. ./config.ini
+
 LOGPATH=$SCRIPTPATH/log
 TMPPATH=$SCRIPTPATH/tmp
 LIBPATH=$SCRIPTPATH/lib
-
-### read values from config.ini
-. $SCRIPTPATH/config.ini
 
 ### loading script library ###
 . $LIBPATH/gtss.lib
