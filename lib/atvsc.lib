@@ -1,0 +1,137 @@
+#
+# Script Bibliothek
+#
+
+# function readDeviceList_ip
+readDeviceList_ip() {
+   ipliste=$(/usr/bin/cat $1 | grep ATV | cut -d ";" -f 2)
+   echo $ipliste
+}
+
+# function readDeviceList_name
+readDeviceList_name() {
+   ipliste=$(/usr/bin/cat $1 | grep ATV | cut -d " " -f 2 | cut -d ";" -f 1)
+   echo $ipliste
+}
+
+# function connectDevice
+connectDevice() {
+   /usr/bin/adb connect $1
+   if [ $? = '0' ]; then return 0; else return 1; fi;
+}
+
+# function disconnectDevice
+disconnectDevice() {
+   /usr/bin/adb disconnect $1
+   if [ $? = '0' ]; then return 0; else return 1; fi;
+}
+
+# function setProxy
+setProxy() {
+   /usr/bin/adb -s $1 shell settings put global http_proxy $2
+   if [ $? = '0' ]; then return 0; else return 1; fi;
+}
+
+# function rebootDevice
+rebootDevice() {
+   /usr/bin/adb -s $1 reboot
+   if [ $? = '0' ]; then return 0; else return 1; fi;
+}
+
+# function uninstallPogo
+uninstallPogo() {
+   /usr/bin/adb -s $1 uninstall com.nianticlabs.pokemongo
+   if [ $? = '0' ]; then return 0; else return 1; fi;
+}
+
+
+# funktion menueSetProxy
+menueSetProxy() {
+   deviceipliste=$1
+   
+   for deviceip in $deviceipliste ;do
+      connectDevice $deviceip
+      if [ $? = '0' ];
+      then 
+         echo $deviceip successful connected
+   	  sleep 3
+   	  setProxy $deviceip $PROXYPATH
+   	  if [ $? = '0' ];
+   	     then
+   		    echo $deviceip successful set proxy
+   			sleep 3
+   			rebootDevice $deviceip
+   			if [ $? = '0' ]; 
+   			   then 
+   			      echo $deviceip successful rebooting; 
+   			   else 
+   			      ERROR rebooting device $deviceip
+   				  echo $deviceip >> $LOGPATH/device.error
+   				  continue;
+   			fi; 
+   		 else 
+   		    echo ERROR while setting proxy for $deviceip
+   			echo $deviceip >> $LOGPATH/device.error
+   			continue;
+   	  fi;
+      else
+         echo $deviceip not reachable
+   	     echo $deviceip >> $LOGPATH/device.error
+         continue;
+      fi;	  
+   done
+}
+
+# funktion menueReboot
+menueReboot() {
+   deviceipliste=$1
+   
+   for deviceip in $deviceipliste ;do
+      connectDevice $deviceip
+      if [ $? = '0' ];
+      then 
+         echo $deviceip successful connected
+   	     sleep 3
+   	     rebootDevice $deviceip
+   	     if [ $? = '0' ]; 
+   	        then 
+   	           echo $deviceip successful rebooting; 
+   	        else 
+   	           echo ERROR rebooting device $deviceip
+   	  	       echo $deviceip >> $LOGPATH/device.error
+   	  	       continue;
+   	     fi;
+      else
+         echo $deviceip not reachable
+   	     echo $deviceip >> $LOGPATH/device.error
+         continue;
+      fi;	 	  
+   done
+}
+
+# funktion menueUninstallPogo
+menueUninstallPogo() {
+   deviceipliste=$1
+   
+   for deviceip in $deviceipliste ;do
+      connectDevice $deviceip
+      if [ $? = '0' ];
+      then 
+         echo $deviceip successful connected
+   	     sleep 3
+   	     uninstallPogo $deviceip
+   	     if [ $? = '0' ]; 
+   	        then 
+   	           echo $deviceip successful uninstalled PoGo; 
+   	        else 
+   	           echo ERROR uninstalling PoGo from device $deviceip
+   	     	   echo $deviceip >> $LOGPATH/device.error
+   	     	   continue;
+   	     fi;
+      else
+         echo $deviceip not reachable
+   	     echo $deviceip >> $LOGPATH/device.error
+         continue;
+      fi; 	  
+   done
+}

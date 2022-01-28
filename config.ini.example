@@ -1,0 +1,14 @@
+######################################################
+##                                                  ##
+##  Config must match personal and local enviroment ##
+##                                                  ##
+######################################################
+
+#Script path
+SCRIPTPATH=/home/ATVscriptcollection
+
+#Path to RMD or separate ini file
+DEVICECONFIG='device_config.ini'
+
+#Proxy settings
+PROXYPATH='192.168.0.222:8080'
