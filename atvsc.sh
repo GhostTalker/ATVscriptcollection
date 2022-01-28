@@ -4,14 +4,13 @@
 # created by GhostTalker
 #
 
-SCRIPTPATH=/srv/scripte
+### read values from config.ini
+. $SCRIPTPATH/config.ini
+
 CONFIGPATH=$SCRIPTPATH
 LOGPATH=$SCRIPTPATH/log
 TMPPATH=$SCRIPTPATH/tmp
 LIBPATH=$SCRIPTPATH/lib
-
-### read values from config.ini
-. $SCRIPTPATH/config.ini
 
 ### loading script library ###
 . $LIBPATH/gtss.lib
