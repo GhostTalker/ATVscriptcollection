@@ -1,20 +1,20 @@
 #!/bin/bash
-# ADB Script Sammlung
+# Script Sammlung
 # version 1.0
 # created by GhostTalker
 #
 
-### read values from config.ini
-. $SCRIPTPATH/config.ini
-
-### set path
+SCRIPTPATH=/srv/scripte
 CONFIGPATH=$SCRIPTPATH
 LOGPATH=$SCRIPTPATH/log
 TMPPATH=$SCRIPTPATH/tmp
 LIBPATH=$SCRIPTPATH/lib
 
+### read values from config.ini
+. $SCRIPTPATH/config.ini
+
 ### loading script library ###
-. $LIBPATH/atvsc.lib
+. $LIBPATH/gtss.lib
 
 ### Set UTF8 for menue drawing
 export NCURSES_NO_UTF8_ACS=1
