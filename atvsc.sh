@@ -12,7 +12,7 @@ TMPPATH=$SCRIPTPATH/tmp
 LIBPATH=$SCRIPTPATH/lib
 
 ### loading script library ###
-. $LIBPATH/gtss.lib
+. $LIBPATH/atvsc.lib
 
 ### Set UTF8 for menue drawing
 export NCURSES_NO_UTF8_ACS=1
